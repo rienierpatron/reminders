@@ -18,8 +18,7 @@ public class Reminders {
         this._eventNote = eventNote;
     }
 
-    public Reminders(int status, String eventName, String eventDate, String eventTime, String eventNote) {
-        this._status = status;
+    public Reminders(String eventName, String eventDate, String eventTime, String eventNote) {
         this._eventName = eventName;
         this._eventDate = eventDate;
         this._eventTime = eventTime;

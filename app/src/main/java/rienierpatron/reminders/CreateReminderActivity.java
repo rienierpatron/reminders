@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -22,7 +23,7 @@ import android.widget.Toast;
 import java.util.Calendar;
 
 public class CreateReminderActivity extends AppCompatActivity {
-    EditText eventDate, eventTime, eventNote;
+    EditText eventName, eventDate, eventTime, eventNote;
     int year_x,month_x,day_x,minute_x,hour_x;
     static final int DIALOG_ID = 0, DIALOG_ID2 = 1;
 
@@ -52,13 +53,22 @@ public class CreateReminderActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
         if (id == R.id.save) {
+            DBHandler dbHandler = new DBHandler(this, null, null, 1);
+            eventName = (EditText)findViewById(R.id.event_name);
+            eventDate = (EditText)findViewById(R.id.event_date);
+            eventTime = (EditText)findViewById(R.id.event_time);
+            eventNote = (EditText)findViewById(R.id.event_note);
+            Reminders reminder = new Reminders(
+                                    eventName.getText().toString(),
+                                    eventDate.getText().toString(),
+                                    eventTime.getText().toString(),
+                                    eventNote.getText().toString()
+                                );
+            dbHandler.addReminder(reminder);
+            /*Intent intent = new Intent(CreateReminderActivity.this, ListActivity.class);
+            startActivity(intent);*/
             return true;
         }
 
