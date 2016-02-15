@@ -37,6 +37,25 @@ public class CreateReminderActivity extends AppCompatActivity {
         year_x = cal.get(Calendar.YEAR);
         month_x = cal.get(Calendar.MONTH);
         day_x = cal.get(Calendar.DAY_OF_MONTH);
+        hour_x = cal.get(Calendar.HOUR);
+        minute_x = cal.get(Calendar.MINUTE);
+
+        eventDate = (EditText)findViewById(R.id.event_date);
+        eventTime = (EditText)findViewById(R.id.event_time);
+        String m = (month_x > 9)? "" : "0";
+        String d = (day_x > 9)? "" : "0";
+        eventDate.setText(year_x+"/"+m+(month_x+1)+"/"+d+day_x);
+        String AM_PM = (hour_x < 12)? "AM" : "PM";
+        if(hour_x > 12){
+            hour_x -= 12;
+        }else if(hour_x == 0) {
+            hour_x = 12;
+        }
+        String hr = (hour_x < 10)? "0":"";
+        String mt = (minute_x < 10)? "0":"";
+        String givenTime = hr + hour_x + ":" + mt + minute_x + " " + AM_PM;
+        eventTime.setText(givenTime.toString());
+
         showDateOnEditTextTouch();
         showTimeOnEditTextTouch();
 
@@ -155,9 +174,11 @@ public class CreateReminderActivity extends AppCompatActivity {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth){
             year_x = year;
             month_x = monthOfYear + 1;
+            String m = (month_x > 9)? "" : "0";
             day_x = dayOfMonth;
+            String d = (day_x > 9)? "" : "0";
             //Toast.makeText(CreateReminderActivity.this, year_x + "/" + month_x + "/" + day_x, Toast.LENGTH_LONG).show();
-            String givenDate = year_x + "/" + month_x + "/" + day_x;
+            String givenDate = year_x + "/" + m+month_x + "/" + d+day_x;
             eventDate.setText(givenDate.toString());
         }
     };

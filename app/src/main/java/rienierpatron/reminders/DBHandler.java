@@ -2,7 +2,6 @@ package rienierpatron.reminders;
 
 import android.content.Context;
 import android.content.ContentValues;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -10,7 +9,7 @@ public class DBHandler extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 6;
     private static final String DATABASE_NAME = "reminderDB.db";
-    private static final String TABLE_REMINDERS = "reminders";
+    public static final String TABLE_REMINDERS = "reminders";
 
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_STATUS = "status";
