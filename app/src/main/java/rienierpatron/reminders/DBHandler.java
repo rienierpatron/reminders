@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHandler extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 6;
     private static final String DATABASE_NAME = "reminderDB.db";
     private static final String TABLE_REMINDERS = "reminders";
 
@@ -25,10 +25,10 @@ public class DBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_REMINDERS_TABLE = "CREATE TABLE" + TABLE_REMINDERS + "(" +
-                                        COLUMN_ID + "INTEGER PRIMARY_KEY," + COLUMN_EVENT + "TEXT," +
-                                        COLUMN_DATE + "TEXT," + COLUMN_TIME + "TEXT," + COLUMN_NOTE + "TEXT" +
-                                        COLUMN_STATUS + "INTEGER" + ")";
+        String CREATE_REMINDERS_TABLE = "CREATE TABLE " + TABLE_REMINDERS + " (" +
+                                        COLUMN_ID + " INTEGER PRIMARY KEY NOT NULL, " + COLUMN_EVENT + " TEXT, " +
+                                        COLUMN_DATE + " TEXT, " + COLUMN_TIME + " TEXT, " + COLUMN_NOTE + " TEXT, " +
+                                        COLUMN_STATUS + " INTEGER " + ")";
         db.execSQL(CREATE_REMINDERS_TABLE);
     }
 
