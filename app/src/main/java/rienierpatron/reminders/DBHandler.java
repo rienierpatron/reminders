@@ -2,8 +2,11 @@ package rienierpatron.reminders;
 
 import android.content.Context;
 import android.content.ContentValues;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.util.ArrayList;
 
 public class DBHandler extends SQLiteOpenHelper {
 
@@ -49,5 +52,19 @@ public class DBHandler extends SQLiteOpenHelper {
 
         db.insert(TABLE_REMINDERS, null, values);
         db.close();
+    }
+
+    public ArrayList<String> getAllReminders(){
+        ArrayList<String> reminder_list = new ArrayList<String>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res =  db.rawQuery( "select * from "+TABLE_REMINDERS, null );
+        res.moveToFirst();
+
+        while(res.isAfterLast() == false){
+            reminder_list.add(res.getString(res.getColumnIndex(COLUMN_EVENT)));
+            res.moveToNext();
+        }
+        return reminder_list;
     }
 }

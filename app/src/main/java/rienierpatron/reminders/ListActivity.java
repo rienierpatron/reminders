@@ -10,19 +10,29 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 
 public class ListActivity extends AppCompatActivity {
-    RemindersController dbcon;
-    TextView eventName, eventDate;
-    ListView reminderList;
+    private ArrayList<HashMap<String, String>> list;
+    private ListView obj;
+    DBHandler database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
+
+        database = new DBHandler(this, null, null, 0);
+        ArrayList reminder_list = database.getAllReminders();
+        ArrayAdapter arrayAdapter = new ArrayAdapter(this,R.layout.reminders, reminder_list);
+        obj = (ListView)findViewById(R.id.reminderView);
+        list=new ArrayList<HashMap<String,String>>();
+        obj.setAdapter(arrayAdapter);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -37,14 +47,6 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
-        /*reminderList = (ListView)findViewById(R.id.reminderView);
-        Cursor cursor = dbcon.readData();
-        String[] dbData = new String[]{DBHandler.COLUMN_EVENT, DBHandler.COLUMN_DATE};
-        int[] listData = new int[]{R.id.eventName, R.id.eventDate};
-
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(ListActivity.this, R.layout.reminders, cursor, dbData, listData);
-        adapter.notifyDataSetChanged();
-        reminderList.setAdapter(adapter);*/
 
     }
 
